@@ -1,22 +1,27 @@
 #!/usr/bin/python3
 
+from datetime import datetime
+from time import mktime
+
 class Post(object):
     title = ''
 
-    # change this to datetime later
     published = ''
     updated = ''
 
     author = ''
     content = ''
+    link = ''
+    id = 0
 
-    # stretch goal: add link to original job posting in the object
-    def __init__(self, title, published, updated, author, content):
+    def __init__(self, title, published, updated, author, content, link, id):
         self.title = title
-        self.published = published
-        self.updated = updated
+        self.published = self.parse_dates(published)
+        self.updated = self.parse_dates(updated)
         self.author = author
         self.content = content
+        self.id = id
+        self.link = link
 
-    def make_post(title, published, updated, author, content):
-        return Post(title, published, updated, author, content)
+    def parse_dates(self, date):
+        return datetime.fromtimestamp(mktime(date))
